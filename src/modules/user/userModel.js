@@ -6,7 +6,8 @@ const UserSchema = new mongoose.Schema(
     lastName: { type: String, required: true, trim: true },
     email: { type: String, required: true, unique: true, lowercase: true },
     password: { type: String, required: true, minlength: 6 },
-    phone: { type: String, trim: true },
+
+    phone: { type: String, trim: true ,default: "" },
     profilePhotoUrl: { type: String, default: "" },
 
     role: { type: String, enum: ["user", "admin"], default: "user" },
@@ -19,12 +20,12 @@ const UserSchema = new mongoose.Schema(
     addresses: [
       {
         type: { type: String, enum: ["shipping", "billing"], default: "shipping" },
-        apartment: { type: String, trim: true },
-        city: { type: String, trim: true },
-        state: { type: String, trim: true },
-        postalCode: { type: String, trim: true },
-        country: { type: String, trim: true },
-        isDefault: { type: Boolean, default: false },
+        apartment: { type: String, trim: true, default: "" },
+        city: { type: String, trim: true, default: "" },
+        state: { type: String, trim: true, default: "" },
+        postalCode: { type: String, trim: true, default: "" },
+        country: { type: String, trim: true, default: "" },
+        isDefault: { type: Boolean, default: false, }
       }
     ],
 

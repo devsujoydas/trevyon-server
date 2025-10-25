@@ -1,4 +1,4 @@
-const Product = require("../models/Product");
+const productModel = require("./productModel");
 
 const createProduct = async (req, res) => {
   try {
@@ -13,11 +13,11 @@ const createProduct = async (req, res) => {
       images,
       isFeatured
     } = req.body;
- 
+
     if (!title || !description || !price || !category) {
       return res.status(400).json({ message: "Title, description, price & category are required!" });
     }
- 
+
     const newProduct = await Product.create({
       title,
       description,
@@ -40,4 +40,8 @@ const createProduct = async (req, res) => {
   }
 };
 
-module.exports = { createProduct };
+const getProducts = async (req, res) => {
+  const products = await productModel.find()
+  res.send(products)
+}
+module.exports = { createProduct, getProducts };

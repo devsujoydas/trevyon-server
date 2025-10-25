@@ -1,12 +1,11 @@
-const bcrypt = require("bcryptjs");
-const UserModel = require("../user/userModel");
+const bcrypt = require("bcryptjs"); 
 const userModel = require("../user/userModel");
 
 
 
-const getUser = async (req, res) => { 
+const getUser = async (req, res) => {
   try {
-    const users = await userModel.find()
+    const users = await userModel.find().select("-password")
     res.status(200).send(users)
   } catch (error) {
     res.status(500).json({ message: error.message });
@@ -14,4 +13,4 @@ const getUser = async (req, res) => {
 }
 
 
-module.exports = {  getUser };
+module.exports = { getUser };

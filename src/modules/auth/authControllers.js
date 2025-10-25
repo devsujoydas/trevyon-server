@@ -4,20 +4,22 @@ const User = require("../user/userModel");
 
 exports.registerUser = async (req, res) => {
     try {
-        const { firstName, lastName, email, phone, password, profilePhotoUrl } = req.body;
-
+        const { firstName, lastName, email, password, confirmPassword } = req.body;
+ 
         const existingUser = await User.findOne({ email });
         if (existingUser) return res.status(400).json({ message: "User already exists" });
+
+        if (password != confirmPassword) {
+            res.json({ message: "password not matched" })
+        }
 
         const hashedPassword = await bcrypt.hash(password, 10);
 
         const newUser = await User.create({
             firstName,
             lastName,
-            email,
-            phone,
+            email, 
             password: hashedPassword,
-            profilePhotoUrl,
         });
 
         const token = jwt.sign(
@@ -37,6 +39,7 @@ exports.registerUser = async (req, res) => {
             user: newUser,
         });
     } catch (error) {
+        console.log(error.message)
         res.status(500).json({ message: error.message });
     }
 };
