@@ -44,4 +44,12 @@ const getProducts = async (req, res) => {
   const products = await productModel.find()
   res.send(products)
 }
-module.exports = { createProduct, getProducts };
+
+const getProduct = async (req, res) => {
+  const paramsId = req.params.id
+  const product = await productModel.findOne({ _id: paramsId })
+  res.send(product)
+}
+
+
+module.exports = { createProduct, getProducts, getProduct };

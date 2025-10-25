@@ -4,25 +4,38 @@ const ProductSchema = new mongoose.Schema(
   {
     name: { type: String, required: true },
     description: { type: String },
-    category: { type: String, default: "" },
-    
+
     image: { type: String },
     imageGallery: [{ type: String }],
 
-    price: { type: Number, required: true },
-    discountPrice: { type: Number },
-    discountPercentage: { type: Number },
+    price: {
+      netPrice: { type: Number, required: true },
+      discountPrice: { type: Number },
+      discountPercentage: { type: Number },
+    },
 
-    stock: { type: Number, default: 0 },
+
+    productInfo: {
+      category: { type: String, default: "" },
+      stock: { type: Number, default: 0 },
+      sold: { type: Number, default: 0 },
+      sku: { type: String, default: "" },
+    },
 
     rating: {
       average: { type: Number, default: 0 },
-      users: [{ type: String }], 
+      reviews: [
+        {
+          userId: { type: mongoose.Schema.Types.ObjectId, ref: "User" },
+          rating: { type: Number, min: 1, max: 5 },
+          comment: { type: String },
+        },
+      ],
     },
 
+
     benefits: [{ type: String }],
-    ingredients: [{ type: String }],
-    attributes: { type: Object },
+    ingredients: [{ type: String }], 
   },
   { timestamps: true }
 );
