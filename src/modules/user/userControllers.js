@@ -1,7 +1,13 @@
-const bcrypt = require("bcryptjs"); 
+const bcrypt = require("bcryptjs");
 const userModel = require("../user/userModel");
 
+const loggedUser = async (req, res) => {
+  try {
+    console.log(req.body)
+  } catch (error) {
 
+  }
+}
 
 const getUser = async (req, res) => {
   try {
@@ -11,6 +17,6 @@ const getUser = async (req, res) => {
     res.status(500).json({ message: error.message });
   }
 }
+ 
 
-
-module.exports = { getUser };
+module.exports = { getUser, loggedUser };
